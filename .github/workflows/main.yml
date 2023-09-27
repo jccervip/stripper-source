@@ -32,25 +32,27 @@ jobs:
       - name: Setting up ambuild
         run: |
           python -m pip install wheel
-          pip install git+https://github.com/accelerator74/ambuild
+          git clone --recursive https://github.com/accelerator74/ambuild.git
+          pip install ./ambuild
           
       - name: Getting hl2sdk-l4d2
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: alliedmodders/hl2sdk
           ref: l4d2
           path: hl2sdk-l4d2
 
       - name: Checking out MM:Source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: alliedmodders/metamod-source
           ref: master
           path: metamod-master
 
       - name: Checking out own repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
+          submodules: 'recursive'
           path: src
 
       - name: Compiling ${{ github.event.repository.name }} files
@@ -60,3 +62,9 @@ jobs:
           cd build
           python ../configure.py --enable-optimize --sdks="l4d2" --mms-path="${{ github.workspace }}/metamod-master"
           ambuild
+
+      - name: Uploading package
+        uses: actions/upload-artifact@v3
+        with:
+          name: stripper-source-${{ env.GITHUB_SHA_SHORT }}
+          path: src/build/package
