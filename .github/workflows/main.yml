@@ -58,5 +58,5 @@ jobs:
         run: |
           mkdir build
           cd build
-          python ../configure.py --enable-optimize --sdks="l4d2" --mms-path="${{ github.workspace }}/metamod-metamod-master"
+          python ../configure.py --enable-optimize --sdks="l4d2" --mms-path="${{ github.workspace }}/metamod-master"
           ambuild
