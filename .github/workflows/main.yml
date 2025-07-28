@@ -32,7 +32,7 @@ jobs:
       - name: Setting up ambuild
         run: |
           python -m pip install wheel
-          git clone --recursive https://github.com/accelerator74/ambuild.git
+          git clone --recursive https://github.com/alliedmodders/ambuild.git
           pip install ./ambuild
           
       - name: Getting hl2sdk-l4d2
